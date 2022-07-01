@@ -44,3 +44,11 @@ void sort_words(std::vector<std::string>& obj)
 {
     std::sort(obj.begin(), obj.end(), &string_compare);
 }
+
+void delete_word(std::vector<std::string>& obj, const std::string& line_for_delete)
+{
+    sort_words(obj);
+    auto temp = std::lower_bound(obj.begin(), obj.end(), line_for_delete, &string_compare);
+    auto temp2 = std::upper_bound(obj.begin(), obj.end(), line_for_delete, &string_compare);
+    obj.erase(temp, temp2);
+}

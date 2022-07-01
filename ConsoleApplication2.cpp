@@ -53,8 +53,8 @@ void string_compare_test()
 void sort_words_test()
 {
     //arrange
-    std::vector<std::string> vec_befor_sort = { "A", "a", "B", "Z", "G", "X", "A", "B", "W", "Y", "g", "a", "s", "O" };
-    std::vector<std::string> vec_test4 = { "A", "a", "A", "a", "B", "B", "G", "g", "O", "s", "W", "X", "Y", "Z" };
+    std::vector<std::string> vec_befor_sort { "A", "a", "B", "Z", "G", "X", "A", "B", "W", "Y", "g", "a", "s", "O" };
+    std::vector<std::string> vec_test4 { "A", "a", "A", "a", "B", "B", "G", "g", "O", "s", "W", "X", "Y", "Z" };
 
     //act
     sort_words(vec_befor_sort);
@@ -66,12 +66,28 @@ void sort_words_test()
         std::cout << "Sort_words is ERROR\n";
 }
 
+void delete_word_test()
+{
+    std::vector<std::string> vec_befor_delete { "Hello", "World", "I", "am", "programmer", "World", "in", "World"};
+    std::vector<std::string> vec_test5 { "am", "Hello", "I", "in", "programmer" };
+    auto str_to_delete = "World";
+    //act
+    delete_word(vec_befor_delete, str_to_delete);
+
+    //assert
+    if (vec_befor_delete == vec_test5)
+        std::cout << "Delete_word is OK\n";
+    else
+        std::cout << "Delete_word is ERROR\n";
+}
+
 int main()
 {
     split_test();
     connect_str_test();
     string_compare_test();
     sort_words_test();
+    delete_word_test();
     //Рабочая программа
     /*setlocale(LC_ALL, "ru");
     std::ifstream file_out;
@@ -98,10 +114,7 @@ int main()
         while (getline(file_out, line))
         {
             for_sort = split(line, " ");
-            sort_words(for_sort);
-            auto temp = std::lower_bound(for_sort.begin(), for_sort.end(), line_for_delete, &string_compare);
-            auto temp2 = std::upper_bound(for_sort.begin(), for_sort.end(), line_for_delete, &string_compare);
-            for_sort.erase(temp, temp2);
+            delete_word(for_sort, line_for_delete);
             line = connect_str(for_sort, " ");
             file_in << line + "\n";
         }
